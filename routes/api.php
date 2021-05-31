@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -23,3 +24,5 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::get('/user', [UserController::class, 'show'])->middleware('auth:api');
+Route::get('/posts', [PostController::class, 'index']);
+Route::get('/user/{id}/comments', [UserController::class, 'comments']);
