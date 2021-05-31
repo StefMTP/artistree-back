@@ -70,4 +70,12 @@ class User extends Authenticatable implements JWTSubject
     public function portfolioItems() {
         return $this->hasMany(PortfolioItem::class);
     }
+    
+    public function ads_uploaded() {
+        return $this->hasMany(Ad::class, 'uploader', 'id');
+    }
+
+    public function ads_responded_to() {
+        return $this->belongsToMany(Ad::class, 'ad_responses', 'responder', 'ad_id');
+    }
 }
