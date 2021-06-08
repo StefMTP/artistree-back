@@ -15,7 +15,7 @@ class AdController extends Controller
      */
     public function index()
     {
-        //
+        return Ad::with('user_uploaded')->get();
     }
 
     /**
@@ -26,7 +26,14 @@ class AdController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|unique:ads|string|max:255',
+            'description' => 'required',
+            'status' => 'in:active,inactive,aborted,accepted',
+            'uploader' => 'required|integer'
+        ]);
+
+        return Ad::create($request->all());
     }
 
     /**
@@ -35,9 +42,9 @@ class AdController extends Controller
      * @param  \App\Models\Ad  $ad
      * @return \Illuminate\Http\Response
      */
-    public function show(Ad $ad)
+    public function show($id)
     {
-        //
+        return Ad::with(['user_uploaded', 'users_responded'])->find($id);
     }
 
     /**
@@ -47,9 +54,13 @@ class AdController extends Controller
      * @param  \App\Models\Ad  $ad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ad $ad)
+    public function update(Request $request, $id)
     {
-        //
+        $ad = Ad::find($id);
+
+        $ad->update($request->all());
+
+        return $ad;
     }
 
     /**
@@ -58,8 +69,14 @@ class AdController extends Controller
      * @param  \App\Models\Ad  $ad
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ad $ad)
+    public function destroy($id)
     {
-        //
+        return Ad::destroy($id);
+    }
+
+    // show the responses of an ad
+    public function show_responses($id) 
+    {
+        return Ad::find($id)->users_responded;
     }
 }

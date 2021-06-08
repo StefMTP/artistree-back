@@ -15,7 +15,7 @@ class PortfolioItemController extends Controller
      */
     public function index()
     {
-        //
+        return PortfolioItem::all();
     }
 
     /**
@@ -26,18 +26,43 @@ class PortfolioItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required',
+            'type' => 'required|string|max:255',
+            'file_url' => 'file|max:5120',
+            'user_id' => 'required|integer'
+        ]);
+
+        $portfolioItem = new PortfolioItem;
+
+        if($request->file('file_url')){
+            $name = time() . '_' . $request->file_url->getClientOriginalName();
+            $filePath = $request->file('file_url')->storeAs('uploads', $name, 'public');
+        } else {
+            $filePath = 'default.jpg';
+        }
+
+        $portfolioItem->title = $request->title;
+        $portfolioItem->body = $request->body;
+        $portfolioItem->type = $request->type;
+        $portfolioItem->file_url = '/storage/' . $filePath;
+        $portfolioItem->user_id = $request->user_id;
+
+        $portfolioItem->save();
+
+        return $portfolioItem;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PortfolioItem  $portfolioItem
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(PortfolioItem $portfolioItem)
+    public function show($id)
     {
-        //
+        return PortfolioItem::find($id);
     }
 
     /**
@@ -47,9 +72,23 @@ class PortfolioItemController extends Controller
      * @param  \App\Models\PortfolioItem  $portfolioItem
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PortfolioItem $portfolioItem)
+    public function update(Request $request, $id)
     {
-        //
+        $portfolioItem = PortfolioItem::find($id);
+
+        if($request->file('file_url')){
+            $name = time() . '_' . $request->file_url->getClientOriginalName();
+            $filePath = $request->file('file_url')->storeAs('uploads', $name, 'public');
+            $portfolioItem->file_url = '/storage/' . $filePath;
+        }
+
+        $portfolioItem->title = $request->title;
+        $portfolioItem->body = $request->body;
+        $portfolioItem->type = $request->type;
+
+        $portfolioItem->save();
+
+        return $portfolioItem;
     }
 
     /**
@@ -58,8 +97,8 @@ class PortfolioItemController extends Controller
      * @param  \App\Models\PortfolioItem  $portfolioItem
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PortfolioItem $portfolioItem)
+    public function destroy($id)
     {
-        //
+        return PortfolioItem::destroy($id);
     }
 }

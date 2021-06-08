@@ -1,62 +1,23 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+You will need PHP and composer to serve this application. 
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+The composer dependencies can be installed by running 'composer update' (if you have composer
+in a global directory, otherwise follow the instructions found on the site https://getcomposer.org/doc/00-intro.md)
 
-## About Laravel
+The Laravel application can be served with the command 'php artisan serve'.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+You can check all the routes with the command 'php artisan route:list'.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+We were working with a local database, so you will need to set up the mysql properties in the .env file according to your local machine's requirements. You can run all the migrations required to build the database with the command 'php artisan migrate'.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Laravel provides an MVC architecture to our website's backend.
+The most important app files are:
+- routes/api.php, which lists all the API routes we have
+- Http/Controllers/... the directory in which all the Controllers are located. These files serve the purpose of application logic, providing CRUD operations on the app data. 
+- database/migrations/... the directory in which all database migrations are located. In these files, the tables of the database can be built and altered accordingly.
+- Models/... Models can be used to display the relationships between entities in our app, what data is fillable in the database tables, what should be hidden etc.
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+What we didn't manage to complete:
+- Policies/Guards/Middlewares were not completed, these were the types of files that would help restrict our application based on the user roles, authentication status and user friendship status.
+- Social Interactions were not completed, we had initialized a manual way to do it, but it proved lacking. We later found a library called laravel-acquaintances, which introduces friend requests, friend groups, friendships and other social interaction, around the pre-existing User model of Laravel. We had already began creating the tables (the creation logic is found in migrations), but did not manage to figure it out for our application logic in time.
+- We also wanted to implement more logic on the Controllers, in order to provide utilities for smarter filtering and grouping based on keywords and tags such as post topics/statuses etc.
+- The front end of our application, which is located in the artistree-front repository is built as a read-only version of the data stored in the database.

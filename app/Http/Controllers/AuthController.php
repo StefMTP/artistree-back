@@ -10,17 +10,36 @@ class AuthController extends Controller
 {
     // Signing up a new user, with validation and bcrypt hashing (if we want to add a confirmation for our password, we need to include a password_confirmation property in the JSON with the same value as the password )
     public function register(Request $request) {
-        $fields = $request->validate([
+        $request->validate([
             'username' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|max:15'
+            'password' => 'required|min:6|max:15|confirmed'
         ]);
 
-        $user = User::create([
-            'username' => $fields['username'],
-            'email' => $fields['email'],
-            'password' => bcrypt($fields['password'])
-        ]);
+        $user = new User;
+
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->role = $request->role;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->gender = $request->gender;
+        $user->phone = $request->phone;
+        $user->location = $request->location;
+        
+        $user->save();
+        // $user = User::create([
+        //     'username' => $request->username,
+        //     'email' => $request->email,
+        //     'password' => bcrypt($request->password),
+        //     'role' => $request->role,
+        //     'first_name' => $request->first_name,
+        //     'last_name' => $request->last_name,
+        //     'gender' => $request->gender,
+        //     'phone' => $request->phone,
+        //     'location' => $request->location,
+        // ]);
 
         return response([
             'message' => 'User registered successfully.',

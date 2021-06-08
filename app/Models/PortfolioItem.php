@@ -9,6 +9,14 @@ class PortfolioItem extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'body',
+        'type',
+        'file_url',
+        'user_id'
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }

@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Branchout;
+use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class BranchoutPolicy
+class CommentPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class BranchoutPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Branchout  $branchout
+     * @param  \App\Models\Comment  $comment
      * @return mixed
      */
-    public function view(User $user, Branchout $branchout)
+    public function view(User $user, Comment $comment)
     {
         //
     }
@@ -48,10 +48,10 @@ class BranchoutPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Branchout  $branchout
+     * @param  \App\Models\Comment  $comment
      * @return mixed
      */
-    public function update(User $user, Branchout $branchout)
+    public function update(User $user, Comment $comment)
     {
         //
     }
@@ -60,10 +60,10 @@ class BranchoutPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Branchout  $branchout
+     * @param  \App\Models\Comment  $comment
      * @return mixed
      */
-    public function delete(User $user, Branchout $branchout)
+    public function delete(User $user, Comment $comment)
     {
         //
     }
@@ -72,10 +72,10 @@ class BranchoutPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Branchout  $branchout
+     * @param  \App\Models\Comment  $comment
      * @return mixed
      */
-    public function restore(User $user, Branchout $branchout)
+    public function restore(User $user, Comment $comment)
     {
         //
     }
@@ -84,10 +84,10 @@ class BranchoutPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Branchout  $branchout
+     * @param  \App\Models\Comment  $comment
      * @return mixed
      */
-    public function forceDelete(User $user, Branchout $branchout)
+    public function forceDelete(User $user, Comment $comment)
     {
         //
     }

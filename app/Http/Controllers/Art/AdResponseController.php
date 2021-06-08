@@ -15,7 +15,7 @@ class AdResponseController extends Controller
      */
     public function index()
     {
-        //
+        return AdResponse::all();
     }
 
     /**
@@ -26,40 +26,44 @@ class AdResponseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return AdResponse::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\AdResponse  $adResponse
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(AdResponse $adResponse)
+    public function show($id)
     {
-        //
+        return AdResponse::find($id);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\AdResponse  $adResponse
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AdResponse $adResponse)
+    public function update(Request $request, $id)
     {
-        //
+        $ad = AdResponse::find($id);
+
+        $ad->update($request->all());
+
+        return $ad;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\AdResponse  $adResponse
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AdResponse $adResponse)
+    public function destroy($id)
     {
-        //
+        return AdResponse::destroy($id);
     }
 }

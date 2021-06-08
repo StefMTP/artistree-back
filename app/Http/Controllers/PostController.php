@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return response()->json(Post::all());
+        return Post::with('user')->get();
     }
 
     /**
@@ -25,40 +25,52 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
+            'topic' => 'string|max:255',
+            'type' => 'in:update,casual,announcement,review,event|required',
+            'user_id' => 'required|integer'
+        ]);
+
+        return Post::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        return Post::with('user', 'comments.user')->find($id);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
-        //
+        $post = Post::find($id);
+
+        $post->update($request->all());
+
+        return $post;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post  $post
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        //
+        return Post::destroy($id);
     }
 }
